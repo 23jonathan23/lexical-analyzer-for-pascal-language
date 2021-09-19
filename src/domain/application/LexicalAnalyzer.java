@@ -58,6 +58,8 @@ public class LexicalAnalyzer {
                 }
             }
 
+            br.close();
+
             tokens.removeAll(Collections.singleton(""));
 
             return tokens;
