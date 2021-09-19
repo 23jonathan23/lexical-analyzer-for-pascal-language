@@ -1,0 +1,10 @@
+program HelloWorld;
+uses crt;
+
+begin
+   var teste = 1222;
+   
+   if(teste = 1222) then {
+      writeln("Hello, World!");
+   }
+end.
