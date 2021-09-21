@@ -31,13 +31,14 @@ public class LexicalAnalyzer {
         tokenWrapper.mapTokensNumber(tokens);
         tokenWrapper.mapTokensOperator(tokens);
         tokenWrapper.mapTokensParameter(tokens);
+        tokenWrapper.mapCurlyBrackets(tokens);
         tokenWrapper.mapTokensReservedWords(tokens);
         tokenWrapper.mapTokensSymbol(tokens);
 
         var tokensResult = tokenWrapper.getTokensResult();
 
         for(var token : tokensResult)
-            System.out.println(token);
+            System.out.println(token.toString());
     }
 
     private List<String> getTokens() {

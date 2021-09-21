@@ -7,6 +7,8 @@ public enum TokenType {
     OPERATOR,
     LPAR,
     RPAR,
+    LCURB,
+    RCURB,
     NSTRING,
     KEYWORD,
     SYMBOL,
