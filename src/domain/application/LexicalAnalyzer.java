@@ -25,15 +25,7 @@ public class LexicalAnalyzer {
 
         var tokenWrapper = new Token();
 
-        tokenWrapper.mapTokensId(tokens);
-        tokenWrapper.mapTokensAssignment(tokens);
-        tokenWrapper.mapTokensNString(tokens);
-        tokenWrapper.mapTokensNumber(tokens);
-        tokenWrapper.mapTokensOperator(tokens);
-        tokenWrapper.mapTokensParameter(tokens);
-        tokenWrapper.mapCurlyBrackets(tokens);
-        tokenWrapper.mapTokensReservedWords(tokens);
-        tokenWrapper.mapTokensSymbol(tokens);
+        tokenWrapper.mapTokens(tokens);
 
         var tokensResult = tokenWrapper.getTokensResult();
 

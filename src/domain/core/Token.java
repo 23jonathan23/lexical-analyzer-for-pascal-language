@@ -22,7 +22,7 @@ public class Token {
 
     private List<TokenSpec> tokens;
 
-    private List<TokenSpec> invalidTokens;
+    private List<String> invalidTokens;
 
     public Token() {
         this.reservedWords = Arrays.asList("var", "string", "char", "boolean", "integer", "real", "if", "then", 
@@ -37,68 +37,121 @@ public class Token {
         this.invalidTokens = new ArrayList<>();
     }
 
-    public void mapTokensId(List<String> tokens) {
-        for(var token : tokens)
-            if(Pattern.matches(REGEX_IDENTIFIER, token) && !this.reservedWords.contains(token)
-                && !Pattern.matches(REGEX_NSTRING, token))
-                this.tokens.add(new TokenSpec(TokenType.ID, token));
+    public void mapTokens(List<String> tokens) {
+        for (var token : tokens) {
+            boolean isNotInvalid = false;
+
+            isNotInvalid = checkTokenId(token);
+
+            isNotInvalid = checkTokenNumber(token);
+
+            isNotInvalid = checkTokenOperator(token);
+
+            isNotInvalid = checkTokenReservedWords(token);
+
+            isNotInvalid = checkTokenSymbol(token);
+
+            isNotInvalid = checkTokenParameter(token);
+
+            isNotInvalid = checkTokenCurlyBrackets(token);
+
+            isNotInvalid = checkTokenNString(token);
+
+            isNotInvalid = checkTokenAssignment(token);
+
+            if(!isNotInvalid)
+                invalidTokens.add(token);
+        }
     }
 
-    public void mapTokensNumber(List<String> tokens) {
-        for(var token : tokens)
-            if(Pattern.matches(REGEX_NUMBER, token)) 
-                this.tokens.add(new TokenSpec(TokenType.NUMBER, token));
+    private boolean checkTokenId(String token) {
+        if(Pattern.matches(REGEX_IDENTIFIER, token) && !this.reservedWords.contains(token)
+                && !Pattern.matches(REGEX_NSTRING, token)) {
+            this.tokens.add(new TokenSpec(TokenType.ID, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensOperator(List<String> tokens) {
-        for(var token : tokens)
-            if(this.operators.contains(token)) 
-                this.tokens.add(new TokenSpec(TokenType.OPERATOR, token));
+    private boolean checkTokenNumber(String token) {
+        if(Pattern.matches(REGEX_NUMBER, token)) {
+            this.tokens.add(new TokenSpec(TokenType.NUMBER, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensReservedWords(List<String> tokens) {
-        for(var token : tokens)
-            if(this.reservedWords.contains(token)) 
-                this.tokens.add(new TokenSpec(TokenType.KEYWORD, token));
+    private boolean checkTokenOperator(String token) {
+        if(this.operators.contains(token)) { 
+            this.tokens.add(new TokenSpec(TokenType.OPERATOR, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensSymbol(List<String> tokens) {
-        for(var token : tokens)
-            if(this.symbols.contains(token)) 
-                this.tokens.add(new TokenSpec(TokenType.SYMBOL, token));
+    private boolean checkTokenReservedWords(String token) {
+        if(this.reservedWords.contains(token)) {
+            this.tokens.add(new TokenSpec(TokenType.KEYWORD, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensParameter(List<String> tokens) {
-        for(var token : tokens)
-            if(token.equals("("))
-                this.tokens.add(new TokenSpec(TokenType.LPAR, token));
-            else if(token.equals(")"))
-                this.tokens.add(new TokenSpec(TokenType.RPAR, token));
+    private boolean checkTokenSymbol(String token) {
+        if(this.symbols.contains(token)) {
+            this.tokens.add(new TokenSpec(TokenType.SYMBOL, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapCurlyBrackets(List<String> tokens) {
-        for (var token : tokens)
-            if (token.equals("{")) 
-                this.tokens.add(new TokenSpec(TokenType.LCURB, token));
-            else if (token.equals("}"))
-                this.tokens.add(new TokenSpec(TokenType.RCURB, token));
+    private boolean checkTokenParameter(String token) {
+        if(token.equals("(")) {
+            this.tokens.add(new TokenSpec(TokenType.LPAR, token));
+            return true;
+        }
+        if(token.equals(")")) {
+            this.tokens.add(new TokenSpec(TokenType.RPAR, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensNString(List<String> tokens) {
-        for(var token : tokens)
-            if(Pattern.matches(REGEX_NSTRING, token)) 
-                this.tokens.add(new TokenSpec(TokenType.NSTRING, token));
+    private boolean checkTokenCurlyBrackets(String token) {
+        if (token.equals("{")) {
+            this.tokens.add(new TokenSpec(TokenType.LCURB, token));
+            return true;
+        }
+        if (token.equals("}")) {
+            this.tokens.add(new TokenSpec(TokenType.RCURB, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapTokensAssignment(List<String> tokens) {
-        for(var token : tokens)
-            if(token.equals("="))
-                this.tokens.add(new TokenSpec(TokenType.ASSIGNMENT, token));
+    private boolean checkTokenNString(String token) {
+        if(Pattern.matches(REGEX_NSTRING, token)) {
+            this.tokens.add(new TokenSpec(TokenType.NSTRING, token));
+            return true;
+        }
+
+        return false;
     }
 
-    public void mapInvalidTokens(List<String> tokens) {
-        for(var token : tokens)
-            this.invalidTokens.add(new TokenSpec(TokenType.INVALID, token));
+    private boolean checkTokenAssignment(String token) {
+        if(token.equals("=")) {
+            this.tokens.add(new TokenSpec(TokenType.ASSIGNMENT, token));
+            return true;
+        }
+
+        return false;
     }
 
     public List<TokenSpec> getTokensResult() {
