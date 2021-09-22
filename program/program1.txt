@@ -1,6 +1,10 @@
 program HelloWorld;
 uses crt;
 
+var
+   variavelA, variavelB : integer;
+   variavelC : string;
+
 begin
    var teste = 1222;
    
