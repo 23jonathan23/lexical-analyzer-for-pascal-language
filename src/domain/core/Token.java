@@ -25,12 +25,12 @@ public class Token {
     private List<String> invalidTokens;
 
     public Token() {
-        this.reservedWords = Arrays.asList("var", "string", "char", "boolean", "integer", "real", "if", "then", 
+        this.reservedWords = Arrays.asList("var", "const", "string", "char", "boolean", "integer", "real", "if", "then", 
             "else", "begin", "end", "read", "writeln", "program", "uses", "crt");
         
         this.operators = Arrays.asList("+", "-", "/", "*", "%", "^");
 
-        this.symbols = Arrays.asList("<", ">", ":", "|", "&", ";", ".");
+        this.symbols = Arrays.asList("<", ">", ":", "|", "&", ";", ".", ",");
 
         this.tokens = new ArrayList<>();
 
@@ -156,5 +156,9 @@ public class Token {
 
     public List<TokenSpec> getTokensResult() {
         return this.tokens;
+    }
+
+    public List<String> getInvalitTokens() {
+        return invalidTokens;
     }
 }
