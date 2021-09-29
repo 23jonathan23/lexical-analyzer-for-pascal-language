@@ -1,0 +1,13 @@
+program Soma;
+uses crt;
+
+const
+    n1 = 2;
+    n2 = 3;
+var
+    res : integer;
+
+begin
+    res = n1 + n2;
+    writeln('Resultado = ', res);
+end.
