@@ -2,12 +2,12 @@ program Soma;
 uses crt;
 
 const
-    n1 = 2;
-    n2 = 3;
+    nA = 2;
+    nB = 3;
 var
     res : integer;
 
 begin
-    res = n1 + n2;
+    res = nA + nB;
     writeln('Resultado = ', res);
 end.
